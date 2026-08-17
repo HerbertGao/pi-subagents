@@ -90,6 +90,9 @@ describe("toolDescriptionMode", () => {
     expect(desc).toContain("## Writing the prompt");
     // Full agent descriptions are embedded (a late Explore sentence survives).
     expect(desc).toContain("very thorough");
+    expect(desc).toContain("Omit it for read-only tasks and non-Git directories.");
+    expect(tools.get("Agent").parameters.properties.isolation.description)
+      .toContain("Omit for read-only tasks and non-Git directories.");
   });
 
   it("compact mode swaps in the short description with one-line type list", () => {
@@ -102,6 +105,7 @@ describe("toolDescriptionMode", () => {
     expect(desc).toContain("- general-purpose:");
     expect(desc).toContain("- Explore: Fast read-only search agent for locating code. (Tools:");
     expect(desc).not.toContain("very thorough");
+    expect(desc).toContain("omit it for read-only tasks and non-Git directories.");
     // The point of the feature: materially smaller than the full version.
     expect(desc.length).toBeLessThan(1600);
   });
