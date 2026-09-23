@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
-- **Retain unconsumed completed results beyond the 10-minute cleanup window.** Cleanup now disposes a completed agent only after its result has been consumed, so delayed result retrieval remains available.
+- **Retain unconsumed completed results beyond the 10-minute cleanup window.** Cleanup now disposes a completed agent only after its result has been consumed, so delayed result retrieval remains available. Separately, restore mention-clone history through SessionManager and its live prompt through `before_agent_start` for compatibility with Pi 0.87's read-only agent state.
 - **The workflow stand-down now recognises a lowercase `workflow` tool** ([#283](https://github.com/tintinweb/pi-subagents/issues/283) — thanks [@zampierilucas](https://github.com/zampierilucas)). The match is exact on purpose, and the set held `Workflow` and `SubagentWorkflow` only, so `@quintinshaw/pi-dynamic-workflows` — which registers lowercase `workflow` — never tripped it: with `workflowsEnabled` unset, both orchestrators reached the model and nothing warned. Adding the third name is the whole fix; exactness is kept, so a `list_workflows` still cannot take the feature down.
 
 ## [0.19.0] - 2026-08-25
