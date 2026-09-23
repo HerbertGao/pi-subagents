@@ -175,7 +175,10 @@ export async function runMentionClone(opts: MentionCloneOptions): Promise<Mentio
     // real thing, so the copy reasons under the instructions the user's model
     // is actually working under.
     const systemPrompt = ctx.getSystemPrompt?.();
-    if (systemPrompt) session.agent.state.systemPrompt = systemPrompt;
+    if (systemPrompt) {
+      // pi's compat-latest types expose this runtime-copy target as readonly.
+      (session.agent.state as { systemPrompt: string }).systemPrompt = systemPrompt;
+    }
 
     // The conversation itself. Pushed rather than assigned so the array the
     // session was built around stays the one it goes on using.
